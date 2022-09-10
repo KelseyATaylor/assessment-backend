@@ -1,4 +1,5 @@
 let books = require("./db.json");
+let globalID = 3;
 
 module.exports = {
 	getCompliment: (req, res) => {
@@ -35,5 +36,28 @@ module.exports = {
 		let randomFortune = fortune[randomIndex];
 
 		res.status(200).send(randomFortune);
+	},
+
+	getBooks: (req, res) => {
+		res.status(200).send(books);
+	},
+
+	deleteBook: (req, res) => {
+		let index = books.findIndex((elem) => elem.id === +req.params.id);
+		books.splice(index, 1);
+		res.status(200).send(books);
+	},
+
+	createBook: (req, res) => {
+		const { title, author, imageURL } = req.body;
+		let newBook = {
+			title,
+			author,
+			imageURL,
+			id: globalID,
+		};
+		books.push(newBook);
+		globalID++;
+		res.status(200).send(books);
 	},
 };

@@ -2,13 +2,36 @@
 <html>
 	<head>
 		<title>Back End Assessment</title>
+		<link rel="stylesheet" href="styles.css" />
 	</head>
 	<body class="container">
-		<button id="complimentButton">Get a compliment</button>
-		<button id="insultButton">Get an Insult</button>
-		<button id="fortuneButton">Get a Fortune</button>
+		<section class="btn-container">
+			<button id="complimentButton">Get a compliment</button>
+			<button id="insultButton">Get an Insult</button>
+			<button id="fortuneButton">Get an Ideal</button>
+		</section>
 
-		<section id="books-container"></section>
+		<h3>Add your favorite book here:</h3>
+		<form>
+			<input type="text" id="title" placeholder="What's the name of your favorite book?" />
+			<input type="text" id="author" placeholder="Who's the author?" />
+			<input type="text" id="img" placeholder="Paste the book cover's URL here" />
+			<button>Submit</button>
+		</form>
+
+		<label for="genres">Choose a genre:</label>
+		<select name="genres" id="genres">
+			<option value="Fantasy">Fantasy</option>
+			<option value="Sci-Fi">Sci-Fi</option>
+			<option value="Romance">Romance</option>
+			<option value="Non-fiction">Non-fiction</option>
+			<option value="Childrens">Childrens</option>
+			<input type="submit" value="Submit" />
+		</select>
+
+		<section class="books-section-container">
+			<section id="books-container"></section>
+		</section>
 
 		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 		<script src="main.js"></script>

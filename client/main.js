@@ -1,6 +1,14 @@
+//Declared. Tied to the index.html
 const complimentBtn = document.getElementById("complimentButton");
 const insultBtn = document.getElementById("insultButton");
 const fortuneBtn = document.getElementById("fortuneButton");
+const bookContainer = document.getElementById("books-container");
+const form = document.querySelector("form");
+
+//Other declared
+const errCallback = (err) => console.log(err.response.data);
+
+//Axios requests
 
 const getCompliment = () => {
 	axios.get("http://localhost:4000/api/compliment/").then((res) => {
@@ -23,15 +31,70 @@ const getFortune = () => {
 	});
 };
 
-const createBook = (body) => axios.post("http://localhost:4000/api/book", body).then();
+//Show current database books
+const booksCallback = ({ data: books }) => showBooks(books);
+const getAllBooks = () => axios.get("http://localhost:4000/api/books").then(booksCallback).catch(errCallback);
+
+//Delete a book
+const deleteBook = (id) => {
+	axios.delete(`http://localhost:4000/api/books/${id}`).then(booksCallback).catch(errCallback);
+	alert(`Your book has been deleted!`);
+};
+
+//Create a book
+
+const createBook = (body) => {
+	axios.post("http://localhost:4000/api/create", body).then(booksCallback).catch(errCallback);
+	alert(`Your book has been created!`);
+};
 
 const submitHandler = (event) => {
 	event.preventDefault();
 
-	let title = document.querySelector("#title");
-	let imgURL = document.querySelector("#imgURL");
+	let title = document.getElementById("title");
+	let author = document.getElementById("author");
+	let imageURL = document.getElementById("img");
+
+	let bodyObj = {
+		title: title.value,
+		author: author.value,
+		imageURL: imageURL.value,
+	};
+
+	createBook(bodyObj);
+
+	title.value = "";
+	author.value = "";
+	imageURL.value = "";
 };
 
+const createBookDisplay = (books) => {
+	const bookDisplay = document.createElement("div");
+	bookDisplay.classList.add("book-display");
+
+	bookDisplay.innerHTML = `
+    <p>Title: ${books.title}</p>
+    <p>By: ${books.author}</p>
+    <img alt="book cover" src=${books.imageURL} class="book-cover"/>
+    
+	<button onclick="deleteBook(${books.id})">Delete</button>
+    `;
+
+	bookContainer.appendChild(bookDisplay);
+};
+
+//Show a book
+const showBooks = (arr) => {
+	bookContainer.innerHTML = ``;
+	for (let i = 0; i < arr.length; i++) {
+		createBookDisplay(arr[i]);
+	}
+};
+
+//Event Listeners
 complimentBtn.addEventListener("click", getCompliment);
 insultBtn.addEventListener("click", getInsult);
 fortuneBtn.addEventListener("click", getFortune);
+form.addEventListener("submit", submitHandler);
+
+getAllBooks();

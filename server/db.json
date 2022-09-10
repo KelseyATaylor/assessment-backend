@@ -2,11 +2,13 @@
 	{
 		"id": 1,
 		"title": "The Way of Kings",
-		"imageURL": "https://images-na.ssl-images-amazon.com/images/I/91KzZWpgmyL.jpg"
+		"author": "Brandon Sanderson",
+		"imageURL": "https://images-na.ssl-images-amazon.com/images/W/WEBP_402378-T2/images/I/51ttJEFwlNL._SY291_BO1,204,203,200_QL40_FMwebp_.jpg"
 	},
 	{
 		"id": 2,
 		"title": "Words of Radiance",
-		"imageURL": "https://images-na.ssl-images-amazon.com/images/I/81o27Vl468L.jpg"
+		"author": "Brandon Sanderson",
+		"imageURL": "https://mpd-biblio-covers.imgix.net/9780765365286.jpg?w=150"
 	}
 ]
